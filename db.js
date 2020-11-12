@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { STRING, DATE } = Sequelize;
+const { INTEGER, STRING, DATE } = Sequelize;
 const conn = new Sequelize(
   process.env.DATABASE_URL ||
     'postgres://localhost/acme_people_places_things_db'
@@ -45,6 +45,10 @@ const Purchases = conn.define('purchases', {
     allowNull: false,
     unique: true,
   },
+  count: {
+    type: INTEGER,
+    allowNull: false,
+  },
   date: {
     type: DATE,
     allowNull: false,
@@ -70,19 +74,17 @@ const syncAndSeed = async () => {
     ['foo', 'bar', 'bazz', 'quq'].map((name) => Things.create({ name }))
   );
 
-  const [foo, bar, bazz, quq] = await Promise.all(
-    ['foo', 'bar', 'bazz', 'quq'].map((name) => Purchases.create({ things }))
-  );
-
-  eng.userId = lucy.id;
-  mkt.userId = lucy.id;
-  await Promise.all([eng.save(), mkt.save()]);
+  // const [foo, bar, bazz, quq] = await Promise.all(
+  //   ['foo', 'bar', 'bazz', 'quq'].map((name) => Purchases.create({ things }))
+  // );
 };
 
 module.exports = {
   syncAndSeed,
   models: {
-    User,
-    Department,
+    People,
+    Places,
+    Things,
+    Purchases,
   },
 };

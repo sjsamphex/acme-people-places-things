@@ -20,6 +20,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "html-template-tag": "^3.2.0",
+    "method-override": "^3.0.0",
     "pg": "^8.5.0",
     "sequelize": "^6.3.5"
   },
